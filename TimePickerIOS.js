@@ -18,11 +18,26 @@ class TimePickerIOS extends React.Component {
             millisecond = 0,
         } = event.nativeEvent;
 
-        onChange({ hour, minute, second, millisecond });
+        if (!this.props.isDateShow) {
+            onChange({ hour, minute, second, millisecond });
+            return;
+        }
+
+        const {
+            day,
+            month,
+            year,
+        } = event.nativeEvent;
+
+        onChange({ day, month, year, hour, minute, second, millisecond });
     }
 
     render() {
         const {
+            isDateShow = false,
+            day = 1,
+            month = 1,
+            year = 1970,
             hour = 0,
             minute = 0,
             second = 0,
@@ -31,7 +46,11 @@ class TimePickerIOS extends React.Component {
 
         return (
            <TimePickerView
-               style={{height: 200, width: 300}}
+               style={{ height: 200, width: isDateShow ? 400 : 300 }}
+               isDateShow={isDateShow}
+               day={day}
+               month={month}
+               year={year}
                hour={hour}
                minute={minute}
                second={second}
@@ -43,6 +62,10 @@ class TimePickerIOS extends React.Component {
 }
 
 TimePickerIOS.propTypes = {
+    isDateShow: PropTypes.bool,
+    day: PropTypes.number,
+    month: PropTypes.number,
+    year: PropTypes.number,
     hour: PropTypes.number,
     minute: PropTypes.number,
     second: PropTypes.number,

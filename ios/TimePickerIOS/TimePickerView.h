@@ -13,11 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TimePickerView : UIPickerView
   
-  @property (strong, nonatomic) TimePickerManager *pickerManager;
-  @property NSInteger hour;
-  @property NSInteger minute;
-  @property NSInteger second;
-  @property NSInteger millisecond;
+@property (strong, nonatomic) TimePickerManager *pickerManager;
+
+@property BOOL isDateShow;
+
+@property NSInteger day;
+@property NSInteger month;
+@property NSInteger year;
+@property NSInteger hour;
+@property NSInteger minute;
+@property NSInteger second;
+@property NSInteger millisecond;
   
   @property (nonatomic, copy) RCTBubblingEventBlock onChange;
   

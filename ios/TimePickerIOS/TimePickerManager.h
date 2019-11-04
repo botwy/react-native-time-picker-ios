@@ -13,11 +13,22 @@
 #import "RCTViewManager.h"
 #endif
 
+typedef enum { Date, Hour, Minute, Second, Millisecond } PickerType;
+
 @interface TimePickerManager : RCTViewManager <UIPickerViewDelegate, UIPickerViewDataSource>
-  
-  @property NSInteger hour;
-  @property NSInteger minute;
-  @property NSInteger second;
-  @property NSInteger millisecond;
-  
-  @end
+
+@property BOOL isDateShow;
+
+@property NSInteger day;
+@property NSInteger month;
+@property NSInteger year;
+@property NSInteger hour;
+@property NSInteger minute;
+@property NSInteger second;
+@property NSInteger millisecond;
+
+-(NSInteger)getPickerTypeIndexBy:(PickerType)pickerType;
+-(NSInteger)getDayIndex;
+-(void)ajustPickerTypes;
+
+@end

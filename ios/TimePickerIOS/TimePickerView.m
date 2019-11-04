@@ -10,41 +10,69 @@
 
 @implementation TimePickerView
   
-  - (instancetype)initWithFrame:(CGRect)frame
-  {
-    self = [super initWithFrame:frame];
-    if (self) {
-      [self setup];
-    }
-    
-    return self;
-  }
-  
-  - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-      [self setup];
-    }
-    
-    return self;
-  }
-  
   - (void)setup {
-    self.pickerManager = [[TimePickerManager alloc] init];
     self.delegate = self.pickerManager;
     self.dataSource = self.pickerManager;
-    
-    [self selectRow:self.pickerManager.hour inComponent:0 animated:false];
-    [self selectRow:self.pickerManager.minute inComponent:1 animated:false];
+
+    if (self.pickerManager.isDateShow) {
+      [self selectRow:[self.pickerManager getDayIndex] inComponent:[self.pickerManager getPickerTypeIndexBy:Date] animated:true];
+    }
+    [self selectRow:self.pickerManager.hour inComponent:[self.pickerManager getPickerTypeIndexBy:Hour] animated:false];
+    [self selectRow:self.pickerManager.minute inComponent:[self.pickerManager getPickerTypeIndexBy:Minute] animated:false];
+    [self selectRow:self.pickerManager.second inComponent:[self.pickerManager getPickerTypeIndexBy:Second] animated:false];
+    [self selectRow:self.pickerManager.millisecond inComponent:[self.pickerManager getPickerTypeIndexBy:Millisecond] animated:false];
   }
-  
+
+- (BOOL)isDateShow {
+  return self.pickerManager.isDateShow;
+}
+
+- (void)setIsDateShow:(BOOL)isDateShow {
+  self.pickerManager.isDateShow = isDateShow;
+  [self.pickerManager ajustPickerTypes];
+  [self setup];
+}
+
+- (NSInteger)day {
+  return self.pickerManager.day;
+}
+
+- (void)setDay:(NSInteger)day {
+  self.pickerManager.day = day;
+  if (self.pickerManager.isDateShow) {
+    [self selectRow:[self.pickerManager getDayIndex] inComponent:[self.pickerManager getPickerTypeIndexBy:Date] animated:true];
+  }
+}
+
+- (NSInteger)month {
+  return self.pickerManager.month;
+}
+
+- (void)setMonth:(NSInteger)month {
+  self.pickerManager.month = month;
+  if (self.pickerManager.isDateShow) {
+     [self selectRow:[self.pickerManager getDayIndex] inComponent:[self.pickerManager getPickerTypeIndexBy:Date] animated:true];
+  }
+}
+
+- (NSInteger)year {
+  return self.pickerManager.year;
+}
+
+- (void)setYear:(NSInteger)year {
+  self.pickerManager.year = year;
+  if (self.pickerManager.isDateShow) {
+   [self selectRow:[self.pickerManager getDayIndex] inComponent:[self.pickerManager getPickerTypeIndexBy:Date] animated:true];
+  }
+}
+
   - (NSInteger)hour {
     return self.pickerManager.hour;
   }
   
   - (void)setHour:(NSInteger)hour {
     self.pickerManager.hour = hour;
-    [self selectRow:self.pickerManager.hour inComponent:0 animated:true];
+    [self selectRow:self.pickerManager.hour inComponent:[self.pickerManager getPickerTypeIndexBy:Hour] animated:true];
   }
   
   - (NSInteger)minute {
@@ -53,7 +81,7 @@
   
   - (void)setMinute:(NSInteger)minute {
     self.pickerManager.minute = minute;
-    [self selectRow:self.pickerManager.minute inComponent:1 animated:true];
+    [self selectRow:self.pickerManager.minute inComponent:[self.pickerManager getPickerTypeIndexBy:Minute] animated:true];
   }
   
   - (NSInteger)second {
@@ -62,7 +90,7 @@
   
   - (void)setSecond:(NSInteger)second {
     self.pickerManager.second = second;
-    [self selectRow:self.pickerManager.second inComponent:2 animated:true];
+    [self selectRow:self.pickerManager.second inComponent:[self.pickerManager getPickerTypeIndexBy:Second] animated:true];
   }
   
   - (NSInteger)millisecond {
@@ -71,7 +99,7 @@
   
   - (void)setMillisecond:(NSInteger)millisecond {
     self.pickerManager.millisecond = millisecond;
-    [self selectRow:self.pickerManager.millisecond inComponent:3 animated:true];
+    [self selectRow:self.pickerManager.millisecond inComponent:[self.pickerManager getPickerTypeIndexBy:Millisecond] animated:true];
   }
   
   @end

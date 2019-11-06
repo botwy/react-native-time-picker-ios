@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TimePickerView : UIPickerView
   
-@property (strong, nonatomic) TimePickerManager *pickerManager;
+@property (weak, nonatomic) TimePickerManager *pickerManager;
 
 @property BOOL isDateShow;
 

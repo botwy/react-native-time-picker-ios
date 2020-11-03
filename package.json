@@ -1,6 +1,6 @@
 {
   "name": "react-native-time-picker-ios",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "react native ios time picker view with seconds and milliseconds",
   "main": "index.js",
   "scripts": {
